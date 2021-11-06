@@ -114,3 +114,6 @@ bin-release/
 !.vscode/*.code-snippets
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,git,c,flex
+
+**out.a
+**lex.yy.c
