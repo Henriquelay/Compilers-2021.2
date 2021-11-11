@@ -58,16 +58,24 @@ Constantes numericas e strings (exemplos):
         printf("%d: %s -> %s\n", yylineno, yytext, token);
     }
 %}
-
 %option yylineno
+ignore              [ \t\n\r]+
+comments            "{"[^}]*"}"
+
+real                [0-9]*\.[0-9]+
+int                 [0-9]+
+str                 \"[^\"]*\"
+
+id                  [a-zA-Z😀-🔲][a-zA-Z0-9😀-🔲]*
+
 %%
  /* Any C comment is acceptable as a comment anywhere in a program in both Yacc and Lex, BUT: */
  /*   When using Lex or Yacc whitespace is important, so \/* comment *\/ written into your program touching the LHS of your text will NOT WORK! */
  /*       to make it work, you must add a tab or space to the beginning of the line, to shove it to C code, and not Lex or Yacc code. */
  /* https://stackoverflow.com/a/37284796/12921102 */
 
-[ \t\n]+        /* Ignorar espaços e quebras, nao sao elementos lexicos */
-"{"[^}]*"}"     /* Comentários */
+{ignore}       /* Ignorar espaços e quebras, nao sao elementos lexicos */
+{comments}     /* Comentários */
 
  /* Palavras reservadas */
 begin               printsToken("BEGIN");
@@ -101,13 +109,14 @@ write               printsToken("WRITE");
 ";"                 printsToken("SEMI");
 
  /* Valores estáticos esqueci o nome chique */
-[0-9]*\.[0-9]+      printsToken("REAL_VAL");
-[0-9]+              printsToken("INT_VAL");
-\"[^\"]*\"          printsToken("STR_VAL");
+{real}              printsToken("REAL_VAL");
+{int}               printsToken("INT_VAL");
+{str}               printsToken("STR_VAL");
 
-[a-zA-Z😀-🔲][a-zA-Z0-9😀-🔲]*  printsToken("ID"); /* Identificadores (variaveis) */
+{id}                printsToken("ID"); /* Identificadores (variaveis) */
 
-.|\n|\r                {printf("LEXICAL ERROR (%d): Unknown symbol %s", yylineno, yytext); return(1);}
+.                   {printf("LEXICAL ERROR (%d): Unknown symbol %s", yylineno, yytext);
+                     return(EXIT_FAILURE);}
 
 %%
 

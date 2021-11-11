@@ -1,4 +1,3 @@
 %%
-^0x[0-9a-fA-F]{1,8}$  {exit(0);}
-.*              {exit(1);}
-%%
+^0x[0-9a-fA-F]{1,8}$    {return(EXIT_SUCCESS);}
+.*                      {return(EXIT_FAILURE);}

@@ -2,7 +2,7 @@
 EXE=./lab01
 IN=in
 OUT=out
-echo Ours is on the left
+echo Ours is on the left 👈
 for infile in `ls $IN/*.ezl`; do
     base=$(basename $infile)
     outfile=$OUT/${base/.ezl/.out}
