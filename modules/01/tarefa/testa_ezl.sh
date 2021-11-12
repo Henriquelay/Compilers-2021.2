@@ -1,6 +1,6 @@
 #!/bin/bash
 EXE=./lab01
-IN=in
+IN=../in
 OUT=out
 echo Ours is on the left 👈
 for infile in `ls $IN/*.ezl`; do
