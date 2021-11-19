@@ -1,0 +1,7 @@
+use std::str::FromStr;
+
+grammar;
+
+pub Term: isize = {Num, "(" <Term> ")"};
+
+Num: isize = r"[0-9]+" => isize::from_str(<>).unwrap();
