@@ -12,3 +12,4 @@ for infile in `ls $IN/*.ezl`; do
         break
     fi
 done
+echo Done
