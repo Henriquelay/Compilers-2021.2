@@ -8,10 +8,10 @@ int yylex(void);
 void yyerror(char const *s);
 %}
 %token A
-%token '('
-%token ')'
+%token LPAR
+%token RPAR
 %%
-term: A | '('term')' ;
+term: A | LPAR term RPAR ;
 %%
 int main(void) {
     if (yyparse() == 0) printf("PARSE SUCCESSFUL!\n");

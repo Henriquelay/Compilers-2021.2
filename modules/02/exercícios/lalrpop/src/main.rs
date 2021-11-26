@@ -31,6 +31,21 @@ fn ex2() {
     assert!(ex2::ExprParser::new().parse("((2)))").is_err());
 }
 
+lalrpop_mod!(ex3);
+pub mod ast3;
+
+#[test]
+fn ex3() {
+    assert!(ex3::StatementParser::new().parse("other").is_ok());
+    assert!(ex3::StatementParser::new().parse("if (0) other").is_ok());
+    assert!(ex3::StatementParser::new().parse("if (1) other").is_ok());
+    assert!(ex3::StatementParser::new().parse("if (0) other else other").is_ok());
+    assert!(ex3::StatementParser::new().parse("if (1) other else other").is_ok());
+    assert!(ex3::StatementParser::new().parse("if (0) if (1) other else other").is_ok());
+    
+    assert!(ex3::StatementParser::new().parse("if (0) if (1) other if").is_err());
+}
+
 lalrpop_mod!(pub ex4);
 pub mod ast4;
 

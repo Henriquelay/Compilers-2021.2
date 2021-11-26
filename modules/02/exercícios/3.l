@@ -8,7 +8,9 @@
 
 %%
 [ \t]   /* no op */
-[0-1]+  return expr;
+ /*[0-1]+  return expr;*/
+0       return false_token;
+1       return true_token;
 "("     return '(';
 ")"     return ')';
 "if"    return if_token;

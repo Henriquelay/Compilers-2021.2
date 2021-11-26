@@ -1,0 +1,17 @@
+use std::str::FromStr;
+use crate::ast3::{StatementAST, Exp};
+
+grammar;
+
+
+pub Statement: Statement = {
+    "other" => StatementAST::Other,
+    "if (" <Bool> ")" <Statement> => StatementAST::If(<>),
+    IfElseStatement
+};
+
+IfElseStatement: Statement = {
+    "if (" <Bool> ")" <Statement> "else" <Statement> => StatementAST::If(<>),
+} 
+
+Bool: Expr = r"[0-1]" => Exp::Bool(u8::from_str(<>).unwrap());

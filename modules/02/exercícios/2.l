@@ -7,7 +7,7 @@
 %}
 
 %%
-
+[ \n\t]
 [0-9]+  return num;
 "("     return '(';
 ")"     return ')';
