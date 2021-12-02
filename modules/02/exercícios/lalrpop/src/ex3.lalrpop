@@ -1,0 +1,17 @@
+use std::str::FromStr;
+use crate::ast3::*;
+grammar;
+
+
+pub SuperParser: IdentifierOrReserved = {
+    Reservado => IdentifierOrReserved::IsReserved(<>),
+    Regecudo => IdentifierOrReserved::Identifier(<>),
+}
+
+pub Reservado: Reserved = {
+    "other" => Reserved::OTHER,
+};
+
+pub Regecudo: ID = {
+    r"[a-z]+" => ID(<>.to_string()),
+};
